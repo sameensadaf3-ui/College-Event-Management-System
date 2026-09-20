@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.title }} - Attendees</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans p-8">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-blue-900">{{ event.title }}</h1>
+                <p class="text-sm text-gray-600 mt-1">📅 {{ event.date }} | 📍 {{ event.venue }}</p>
+            </div>
+            <a href="/" class="bg-gray-500 text-white text-sm px-3 py-1.5 rounded hover:bg-gray-600 font-medium">← Back to Events</a>
+        </div>
+
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Registered Attendees ({{ event.registrations|length }})</h2>
+
+        {% if event.registrations %}
+        <table class="w-full border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-50 text-left text-xs text-gray-500 uppercase">
+                    <th class="p-3 border-b">#</th>
+                    <th class="p-3 border-b">Student Name</th>
+                    <th class="p-3 border-b">Email Address</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for reg in event.registrations %}
+                <tr>
+                    <td class="p-3 text-sm text-gray-500">{{ loop.index }}</td>
+                    <td class="p-3 text-sm font-medium text-gray-800">{{ reg.student_name }}</td>
+                    <td class="p-3 text-sm text-gray-600">{{ reg.student_email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-gray-500 italic">No students registered for this event yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
